@@ -9,5 +9,11 @@ script:
 deploy:
   provider: heroku
   api_key:
-  app:
+    secure: KEY
+  app: limitless-taiga-58500
+  on:
+    repo: arique1104/viewing_party
   run: rails db:migrate
+env:
+  global:
+    secure: JhDQ9/hijXcSU5pThbq80YGet9OksRsyVsTbPbUx+srRZsISxEU4IhrWZs7xWQzhttrzoTqBKPYpYM+07WdIZY0IqxrMH9uD7iU6upmIP8hM7QIix2clniKl5MeJ2k8x0FqwQnNS8QsECtiS4ATkrZlgDzWCPamp0toFW4bhpAx5ehy1Acl9X++b1dgilXjqRdE8fz+rTVf1rX7Ugp1sOMVmzCusH3fn9n57zx33dsGRCl/HVZyxtapwQTuwOscgPEizx9kJnS9M4L7MtdjOopB+5SdcpWfHKCbY5NyeCSTjDB0IrQTHOWJ4kC36QMvfwL+g2hzP5cAJCVqKRw2EkaUMHlknOp6gZ81yo/kG8FCsSkgzjR3LkAqFoAOj06/JaSvDVbrBxJLuojU6UF72PsZyGz+SDP2ybbFbFsKT6xQiEdQg/dp6/s3wl+4GDDN4i+VaYHGIuk3IkheFnallt///L0uKab7OZfeZkOcgeRHHm0eB7P/jQexRGPWXu1DmJLNEwrmPBsq6BwiwIPskwcBW9s0So7nZnYTkbAWtvTX2MsV6DS0+anbArALg5hTRKtiBAiIbOhGsb6OqaY4JD9yS7928Y4orZCF8XTF6kKzYlptvK6i0EYZc3oNWU42QfEPxv3chvaCHs5LUOj9pcSfwQNOEDnpmBmlAA2Ha55E=
