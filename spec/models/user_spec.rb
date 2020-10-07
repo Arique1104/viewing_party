@@ -8,5 +8,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "relationships" do
+    # it {should have_many :parties}
+    # it {should have_many(:party_participants).through(:parties)}
   end
 end

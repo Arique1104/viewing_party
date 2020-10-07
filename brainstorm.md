@@ -10,7 +10,7 @@ rails g migration CreateUsers email:string password_digest:string
 
 
 
-# USER_FRIENDS JOINS
+# Friendship JOINS
 belongs_to :users
 
 rails g migration CreateFriends
