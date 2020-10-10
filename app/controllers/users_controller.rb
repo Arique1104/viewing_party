@@ -8,4 +8,8 @@ class UsersController < ApplicationController
       #Probably want to discuss, should this route back to welcome or to /register?
     end
   end
+
+  def create
+
+  end
 end
