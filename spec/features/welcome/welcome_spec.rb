@@ -41,7 +41,7 @@ RSpec.describe "Welcome Page" do
       expect(page).to have_link("New to Viewing Party? Register Here")
       click_link "New to Viewing Party? Register Here"
       expect(current_path).to eq("/register")
-      expect(page).to have_content("Please Reigster for an Account")
+      expect(page).to have_content("Please Register for an Account")
     end
   end
 end
