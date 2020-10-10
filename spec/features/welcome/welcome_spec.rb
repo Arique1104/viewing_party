@@ -38,7 +38,10 @@ RSpec.describe "Welcome Page" do
     it "can show a flash message and redirect back to welcome if login credentials are false"
 
     it "can show a link to register" do
-
+      expect(page).to have_link("New to Viewing Party? Register Here")
+      click_link "New to Viewing Party? Register Here"
+      expect(current_path).to eq("/register")
+      expect(page).to have_content("Please Reigster for an Account")
     end
   end
 end
