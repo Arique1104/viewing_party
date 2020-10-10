@@ -13,19 +13,32 @@
 
 require "rails_helper"
 
-RSpec.describe "As an authenticated user, When I visit the '/discover' path I should see" do
-  it "Button to Discover top 40 movies" do
-# will add back in once we establish authentication
-    # @wilmer = User.create!(email: "wilmer@example.com", password: "securepassword")
-    # # require "pry"; binding.pry
-    #
-    # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@wilmer)
+RSpec.describe "Discover Landing Page" do
+  describe "As an authorized user" do
+    before(:each) do
+      # will add back in once we establish authentication
+      # @wilmer = User.create!(email: "wilmer@example.com", password: "securepassword")
+      # # require "pry"; binding.pry
+      #
+      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@wilmer)
+    end
+    it "can click on button for top 40 movies return" do
 
-    visit '/discover'
+      visit '/discover'
 
-    expect(page).to have_button("Discover Top 40 Movies")
+      expect(page).to have_button("Top 40 Movies")
+    end
+
+    it "can return results of top forty films" do
+      visit '/discover'
+      click_on "Top 40 Movies"
+      expect(current_path).to eq('/movies/top_forty')
+      #Once the API is working and
+      # expect(page).to have_content("#{movie.title}")
+      # within "movie-#{movie.id}" do
+      #   expect(page).to have_content("#{movie.vote_average}")
+      #   expect(page).to have_content("#{movie.run_time}")
+      # end
+    end
   end
-
-  # it "" do
-  # end
 end
