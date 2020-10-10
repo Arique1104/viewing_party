@@ -15,15 +15,16 @@ RSpec.describe "Welcome Page" do
       @rainbow_dash.followers << [@rarity, @applejack, @twilight_sparkle]
       @twilight_sparkle.followers << [@spike, @starlight_glimmer]
       @pinkie_pie.followers << [@rainbow_dash, @twilight_sparkle, @rarity, @applejack, @fluttershy, @spike, @starlight_glimmer]
+
+      visit '/'
     end
 
     it "can show welcome message" do
-      visit '/'
       expect(page).to have_content("Welcome to Viewing Party")
     end
 
     it "can show a brief description of the application" do
-
+      expect(page).to have_content("This application lets you explore movies and create a viewing party event for you and your friends to watch a movie together.")
     end
 
     it "can show email and password fields with a button to login" do
