@@ -31,6 +31,7 @@ RSpec.describe "Welcome Page" do
       fill_in :email, with:@pinkie_pie.email
       fill_in :password, with:@pinkie_pie.password
       click_button "Sign In"
+      expect(current_path).to eq("/dashboard")
 
       expect(page).to have_content("Welcome #{@pinkie_pie.email}!")
     end
