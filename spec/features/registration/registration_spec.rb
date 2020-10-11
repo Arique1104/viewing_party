@@ -55,7 +55,56 @@ RSpec.describe "User registration form" do
     expect(page).to have_content("Welcome #{email}!")
   end
 
+  it "can have a link to login that links back to welcome page" do
+    click_link "New to Viewing Party? Register Here"
+    expect(page).to have_link("Already Registered? Log in Here")
+    click_link "Already Registered? Log in Here"
+    expect(current_path).to eq("/")
+  end
+
   it "can give a failure if user is already in system" do
+    click_link "New to Viewing Party? Register Here"
+
+    fill_in :email, with: @rainbow_dash.email
+    fill_in :password, with: @rainbow_dash.password
+    fill_in :password_confirmation, with: @rainbow_dash.password
+
+    click_button "Register"
+    expect(current_path).to eq("/register")
+    expect(page).to have_content("ERROR: Email (has already been taken)")
+  end
+
+  it "can give a failure if email is not a valid email" do
+    click_link "New to Viewing Party? Register Here"
+
+    email = "celestia"
+    password = "test"
+
+    fill_in :email, with: email
+    fill_in :password, with: password
+    fill_in :password_confirmation, with: password
+
+    click_button "Register"
+    expect(current_path).to eq("/register")
+    expect(page).to have_content("ERROR: Email (is invalid)")
+  end
+
+  it "can give a failure if passwords do not match" do
+    click_link "New to Viewing Party? Register Here"
+
+    email = "celestia@email.com"
+    password = "test"
+
+    fill_in :email, with: email
+    fill_in :password, with: password
+    fill_in :password_confirmation, with: "password"
+
+    click_button "Register"
+    expect(current_path).to eq("/register")
+    expect(page).to have_content("ERROR: Password_confirmation (doesn't match Password)")
+  end
+
+  it "can give multiple error messages" do
     click_link "New to Viewing Party? Register Here"
 
     email = "celestia"
@@ -70,10 +119,5 @@ RSpec.describe "User registration form" do
     expect(page).to have_content("ERROR: Email (is invalid); Password_confirmation (doesn't match Password)")
   end
 
-  it "can have a link to login that links back to welcome page" do
-    click_link "New to Viewing Party? Register Here"
-    expect(page).to have_link("Already Registered? Log in Here")
-    click_link "Already Registered? Log in Here"
-    expect(current_path).to eq("/")
-  end
+  it "can have requirements for strong-password such as length and special characters"
 end
