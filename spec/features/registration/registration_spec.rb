@@ -70,6 +70,10 @@ RSpec.describe "User registration form" do
     expect(page).to have_content("ERROR: Email (is invalid); Password_confirmation (doesn't match Password)")
   end
 
-  it "can have a link to login that links back to welcome page"
-  # expect(page).to have_link("Already Registered? Log in Here")
+  it "can have a link to login that links back to welcome page" do
+    click_link "New to Viewing Party? Register Here"
+    expect(page).to have_link("Already Registered? Log in Here")
+    click_link "Already Registered? Log in Here"
+    expect(current_path).to eq("/")
+  end
 end
