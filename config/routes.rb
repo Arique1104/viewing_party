@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   # resources :welcome, :path => '/', only: :index, as: :welcome
   get "/register", to: "users#new"
   post "/users", to: "users#create"
+  get "/dashboard", to: "users#show"
 end
