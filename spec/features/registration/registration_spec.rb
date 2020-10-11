@@ -18,7 +18,7 @@ RSpec.describe "User registration form" do
     visit '/'
   end
 
-  it "creates new user" do
+  it "can create a new user" do
     expect(page).to have_link("New to Viewing Party? Register Here")
 
     click_link "New to Viewing Party? Register Here"
@@ -38,8 +38,44 @@ RSpec.describe "User registration form" do
     click_button "Register"
 
     expect(current_path).to eq("/dashboard")
+  end
+
+  xit "can keep a user logged in after registering" do
+    click_link "New to Viewing Party? Register Here"
+
+    expect(current_path).to eq("/register")
+
+    expect(page).to have_content("Please Register for an Account")
+
+
+    email = "celestia@email.com"
+    password = "test"
+
+    fill_in :email, with: email
+    fill_in :password, with: password
+    fill_in :password_confirmation, with: password
+
+    click_button "Register"
+
+    expect(current_path).to eq("/dashboard")
 
     expect(page).to have_content("Welcome #{email}!")
+
+
+
+    click_on "Register as a User"
+
+    username = "funbucket13"
+    password = "test"
+
+    fill_in :username, with: username
+    fill_in :password, with: password
+
+    click_on "Create User"
+
+    visit '/profile'
+
+    expect(page).to have_content("Hello, #{username}!")
   end
 
   it "can give a failure if user is already in system"
