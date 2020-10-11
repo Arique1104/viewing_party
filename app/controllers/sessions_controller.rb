@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to '/dashboard'
     else
-      flash[:failure] = "Something went wrong. Please retry entering your credentials or registering as a user."
+      flash[:failure] = "Something went wrong. Please renter your credentials or register below."
       redirect_to "/"
     end
   end
