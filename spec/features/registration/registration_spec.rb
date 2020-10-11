@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "User registration form" do
   before :each do
-    @rainbow_dash = User.create!(email:"rainbow_dash@email.com", password:"user")
-    @pinkie_pie = User.create!(email:"pinkie_pie@email.com", password:"user")
-    @twilight_sparkle = User.create!(email:"twilight_sparkle@email.com", password:"user")
-    @rarity = User.create!(email:"rarity@email.com", password:"user")
-    @applejack = User.create!(email:"applejack@email.com", password:"user")
-    @fluttershy = User.create!(email:"fluttershy@email.com", password:"user")
-    @spike = User.create!(email:"spike@email.com", password:"user")
-    @starlight_glimmer = User.create!(email:"starlight_glimmer@email.com", password:"user")
+    @rainbow_dash = User.create!(email:"rainbow_dash@email.com", password:"User@us3r")
+    @pinkie_pie = User.create!(email:"pinkie_pie@email.com", password:"User@us3r")
+    @twilight_sparkle = User.create!(email:"twilight_sparkle@email.com", password:"User@us3r")
+    @rarity = User.create!(email:"rarity@email.com", password:"User@us3r")
+    @applejack = User.create!(email:"applejack@email.com", password:"User@us3r")
+    @fluttershy = User.create!(email:"fluttershy@email.com", password:"User@us3r")
+    @spike = User.create!(email:"spike@email.com", password:"User@us3r")
+    @starlight_glimmer = User.create!(email:"starlight_glimmer@email.com", password:"User@us3r")
 
     @rainbow_dash.followers << [@rarity, @applejack, @twilight_sparkle]
     @twilight_sparkle.followers << [@spike, @starlight_glimmer]
@@ -29,7 +29,7 @@ RSpec.describe "User registration form" do
 
 
     email = "celestia@email.com"
-    password = "test"
+    password = "Secure#password1"
 
     fill_in :email, with: email
     fill_in :password, with: password
@@ -44,7 +44,7 @@ RSpec.describe "User registration form" do
     click_link "New to Viewing Party? Register Here"
 
     email = "celestia@email.com"
-    password = "test"
+    password = "Secure#password1"
 
     fill_in :email, with: email
     fill_in :password, with: password
@@ -78,7 +78,7 @@ RSpec.describe "User registration form" do
     click_link "New to Viewing Party? Register Here"
 
     email = "celestia"
-    password = "test"
+    password = "Secure#password1"
 
     fill_in :email, with: email
     fill_in :password, with: password
@@ -93,31 +93,44 @@ RSpec.describe "User registration form" do
     click_link "New to Viewing Party? Register Here"
 
     email = "celestia@email.com"
-    password = "test"
+    password = "Secure#password1"
 
     fill_in :email, with: email
     fill_in :password, with: password
-    fill_in :password_confirmation, with: "password"
+    fill_in :password_confirmation, with: "Unsecure_password2"
 
     click_button "Register"
     expect(current_path).to eq("/register")
     expect(page).to have_content("ERROR: Password_confirmation (doesn't match Password)")
   end
 
+  it "can give failure message if password requirements are not met" do
+    click_link "New to Viewing Party? Register Here"
+
+    email = "celestia@email.com"
+    password = "Secure_password1"
+
+    fill_in :email, with: email
+    fill_in :password, with: password
+    fill_in :password_confirmation, with: password
+
+    click_button "Register"
+    expect(current_path).to eq("/register")
+    expect(page).to have_content("ERROR: Password (Complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character)")
+  end
+
   it "can give multiple error messages" do
     click_link "New to Viewing Party? Register Here"
 
     email = "celestia"
-    password = "test"
+    password = "Secure#password1"
 
     fill_in :email, with: email
     fill_in :password, with: password
-    fill_in :password_confirmation, with: "password"
+    fill_in :password_confirmation, with: "Unsecure_password2"
 
     click_button "Register"
     expect(current_path).to eq("/register")
-    expect(page).to have_content("ERROR: Email (is invalid); Password_confirmation (doesn't match Password)")
+    expect(page).to have_content("ERROR: Password_confirmation (doesn't match Password); Email (is invalid)")
   end
-
-  it "can have requirements for strong-password such as length and special characters"
 end
