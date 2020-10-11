@@ -55,7 +55,20 @@ RSpec.describe "User registration form" do
     expect(page).to have_content("Welcome #{email}!")
   end
 
-  it "can give a failure if user is already in system"
+  it "can give a failure if user is already in system" do
+    click_link "New to Viewing Party? Register Here"
+
+    email = "celestia"
+    password = "test"
+
+    fill_in :email, with: email
+    fill_in :password, with: password
+    fill_in :password_confirmation, with: "password"
+
+    click_button "Register"
+    expect(current_path).to eq("/register")
+    expect(page).to have_content("ERROR: Email (is invalid); Password_confirmation (doesn't match Password)")
+  end
 
   it "can have a link to login that links back to welcome page"
   # expect(page).to have_link("Already Registered? Log in Here")
