@@ -48,11 +48,11 @@ RSpec.describe "Discover Landing Page" do
       visit '/discover'
       click_on "Top 40 Movies"
       expect(current_path).to eq('/movies/top_forty')
-save_and_open_page
+# save_and_open_page
       json_response = File.read('spec/fixtures/top_forty_results.json')
       # parsed = JSON.parse(json_response, symbolize_names: true)
 
-      require "pry"; binding.pry
+      # require "pry"; binding.pry
 
       # stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV["MOVIE_API_KEY"]}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1")
 
