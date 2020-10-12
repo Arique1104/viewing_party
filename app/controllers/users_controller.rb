@@ -9,9 +9,8 @@ class UsersController < ApplicationController
       session[:user_id] = new_user.id
       redirect_to "/dashboard"
     else
-      flash[:failure] = "Something went wrong! Are you missing a required field? Are you already registered?"
-      # Eventually change this into validation error messages that rails already has
-      #Example: "ActiveRecord::RecordInvalid: Validation failed: Password confirmation doesn't match Password"
+      generate_flash(new_user)
+      redirect_to "/register"
     end
   end
 
