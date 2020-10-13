@@ -3,14 +3,20 @@ require "rails_helper"
 RSpec.describe "Dashboard Page", type: :feature do
   describe "As a registered user" do
     before :each do
-      @rainbow_dash = User.create!(email:"rainbow_dash@email.com", password:"User@us3r")
-      @pinkie_pie = User.create!(email:"pinkie_pie@email.com", password:"User@us3r")
       @twilight_sparkle = User.create!(email:"twilight_sparkle@email.com", password:"User@us3r")
-      @rarity = User.create!(email:"rarity@email.com", password:"User@us3r")
-      @applejack = User.create!(email:"applejack@email.com", password:"User@us3r")
-      @fluttershy = User.create!(email:"fluttershy@email.com", password:"User@us3r")
+
       @spike = User.create!(email:"spike@email.com", password:"User@us3r")
       @starlight_glimmer = User.create!(email:"starlight_glimmer@email.com", password:"User@us3r")
+      @pinkie_pie = User.create!(email:"pinkie_pie@email.com", password:"User@us3r")
+
+      @rainbow_dash = User.create!(email:"rainbow_dash@email.com", password:"User@us3r")
+      binding.pry
+      # @rarity = User.create!(email:"rarity@email.com", password:"User@us3r")
+      # @applejack = User.create!(email:"applejack@email.com", password:"User@us3r")
+      # @fluttershy = User.create!(email:"fluttershy@email.com", password:"User@us3r")
+
+
+
 
       # @rainbow_dash.followers << [@rarity, @applejack, @twilight_sparkle]
       # @twilight_sparkle.followers << [@spike, @starlight_glimmer]
@@ -31,7 +37,7 @@ RSpec.describe "Dashboard Page", type: :feature do
     end
 
     it "can have a dashboard page" do
-      expect(page).to have_content("Welcome #{@twilight_sparkle.email}!")
+      expect(page).to have_content("Welcome #{@twilight_sparkle.name.capitalize}!")
       expect(page).to have_button("Discover Movies")
       within "#friends" do
         expect(page).to have_content("Friends")
@@ -44,23 +50,45 @@ RSpec.describe "Dashboard Page", type: :feature do
     it "can route discover movies button to discover page" do
       click_button "Discover Movies"
       expect(current_path).to eq("/discover")
-      expect(page).to have_content("Discover Show Page") # NEEDS TO BE UPDATED TO A DYNAMIC WELCOME HEADER
+      expect(page).to have_content("Welcome #{@twilight_sparkle.name.capitalize}!")
+      # expect(page).to have_content("Discover Show Page") # NEEDS TO BE UPDATED TO A DYNAMIC WELCOME HEADER
     end
 
-    it "can see friends section with pertinent info"
-      # - test field for friends email
-      # - button to "Add friend"
-      # - Friend must be in database
-      # - No added friends = "You currently have no friends"
-      # - Added friends = List of all friends
-        # expect(page).to have_content("Friends")
-        # # because she added as followers
-        # expect(page).to have_content(@spike.email)
-        # expect(page).to have_content(@starlight_glimmer.email)
-        # # because rainbow_dash added her
-        # expect(page).to_not have_content(@rainbow_dash.email)
-        # # because there is NO connection
-        # expect(page).to_not have_content(@fluttershy.email)
+    it "can see friends section is empty if no friends are added" do
+      within "#friends" do
+        expect(page).to have_content("You currently have no friends")
+      end
+    end
+
+    describe "when a user has friends added" do
+      before :each do
+        @twilight_sparkle.friendships.create!(friend:@spike)
+        @twilight_sparkle.friendships.create!(friend:@starlight_glimmer)
+        @rainbow_dash.friendships.create!(friend:@twilight_sparkle)
+      end
+
+      it "can see friends section with friends you've added" do
+        within "#friends" do
+          expect(page).to have_content(@spike.name)
+          expect(page).to have_content(@starlight_glimmer.name)
+          expect(page).to have_content(@rainbow_dash.name)
+          expect(page).to_not have_content(@pinkie_pie.name)
+        end
+      end
+
+      it "can add a friend" do
+        within "#friends" do
+          expect(page).to_not have_content(@pinkie_pie.name)
+          fill_in :email, with: @pinkie_pie.email
+          expect(page).to have_button("Add Friend")
+          click_button "Add Friend"
+          expect(current_path).to eq('/dashboard')
+          expect(page).to have_content(@pinkie_pie.name)
+        end
+      end
+
+      it "can see error if friend is not in database (I'm sorry your friend cannot be found)"
+    end
     it "can see a parties section with pertinent info"
       # - Invited
       #   - Movie Title
