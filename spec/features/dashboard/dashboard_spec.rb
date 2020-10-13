@@ -33,16 +33,10 @@ RSpec.describe "Dashboard Page", type: :feature do
       expect(page).to have_content("Welcome #{@twilight_sparkle.email}!")
       expect(page).to have_button("Discover Movies")
       within "#friends" do
-        # # because she added as followers
-        # expect(page).to have_content(@spike.email)
-        # expect(page).to have_content(@starlight_glimmer.email)
-        # # because rainbow_dash added her
-        # expect(page).to_not have_content(@rainbow_dash.email)
-        # # because there is NO connection
-        # expect(page).to_not have_content(@fluttershy.email)
+        expect(page).to have_content("Friends")
       end
       within "#parties" do
-        # expect(page).to have_content()
+        expect(page).to have_content("Viewing Parties")
       end
     end
 
@@ -53,15 +47,23 @@ RSpec.describe "Dashboard Page", type: :feature do
       # - Friend must be in database
       # - No added friends = "You currently have no friends"
       # - Added friends = List of all friends
+        # expect(page).to have_content("Friends")
+        # # because she added as followers
+        # expect(page).to have_content(@spike.email)
+        # expect(page).to have_content(@starlight_glimmer.email)
+        # # because rainbow_dash added her
+        # expect(page).to_not have_content(@rainbow_dash.email)
+        # # because there is NO connection
+        # expect(page).to_not have_content(@fluttershy.email)
     it "can see a parties section with pertinent info"
       # - Invited
       #   - Movie Title
       #   - Date and Time
-      #   - Status of Invited
+      #   - Status == Invited
       # - Created
       #   - Movie Title
       #   - Date and Time
-      #   - Status of Host
+      #   - Status == Host
   end
 
   # describe "As a non-registered user" do
