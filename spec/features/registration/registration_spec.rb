@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "User registration form" do
   before :each do
-    @rainbow_dash = User.create!(name:"Rainbow Dash", email:"rainbow_dash@email.com", password:"User@us3r")
+    @rainbow_dash = User.create!(name:"Rainbow Dash", email:"rainbow@email.com", password:"User@us3r")
     visit '/'
   end
 

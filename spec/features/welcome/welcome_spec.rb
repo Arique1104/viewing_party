@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Welcome Page" do
   describe "as a visitor" do
     before :each do
-      @pinkie_pie = User.create!(name:"pinkie", email:"pinkie_pie@email.com", password:"User@us3r")
+      @pinkie_pie = User.create!(name:"pinkie", email:"pinkie@email.com", password:"User@us3r")
       visit '/'
     end
 
