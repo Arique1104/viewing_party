@@ -11,9 +11,9 @@ RSpec.describe "User registration form" do
     @spike = User.create!(email:"spike@email.com", password:"User@us3r")
     @starlight_glimmer = User.create!(email:"starlight_glimmer@email.com", password:"User@us3r")
 
-    @rainbow_dash.followers << [@rarity, @applejack, @twilight_sparkle]
-    @twilight_sparkle.followers << [@spike, @starlight_glimmer]
-    @pinkie_pie.followers << [@rainbow_dash, @twilight_sparkle, @rarity, @applejack, @fluttershy, @spike, @starlight_glimmer]
+    # @rainbow_dash.followers << [@rarity, @applejack, @twilight_sparkle]
+    # @twilight_sparkle.followers << [@spike, @starlight_glimmer]
+    # @pinkie_pie.followers << [@rainbow_dash, @twilight_sparkle, @rarity, @applejack, @fluttershy, @spike, @starlight_glimmer]
 
     visit '/'
   end
