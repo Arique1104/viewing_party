@@ -15,7 +15,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
+    # @user = User.find(session[:user_id])
+    @user = current_user
   end
 
   private
