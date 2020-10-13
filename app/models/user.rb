@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_many :followees, through: :followed_users
   has_many :following_users, foreign_key: :followee_id, class_name: 'Friendship'
   has_many :followers, through: :following_users
+  has_many :parties
+  # have_many :party_participants, through: :parties
 
   has_secure_password
 
@@ -27,6 +29,4 @@ class User < ApplicationRecord
 
 
 
-  # have_many :parties
-  # have_many :party_participants, through: :parties
 end
