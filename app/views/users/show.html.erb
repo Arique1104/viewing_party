@@ -5,9 +5,16 @@
 <section id="friends">
   <h3>Friends</h3>
   <!-- Add a line under header Friends -->
-  <!-- Form for friends email -->
-  <!-- Button for add friend -->
+  <%= form_tag '/friends' do %>
+    <%= label_tag "Friend's Email" %>
+    <%= text_field_tag :email %>
+    <%= submit_tag "Add Friend", class: :button %>
+  <% end %>
   <!-- Friends list OR 'You currently have no friends.' -->
+  <% if @user.friendships.empty? %>
+    <p>You currently have no friends</p>
+  <% else %>
+  <% end %>
 </section>
 <section id="parties">
   <h3>Viewing Parties</h3>
