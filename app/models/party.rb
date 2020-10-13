@@ -1,10 +1,10 @@
 class Party < ApplicationRecord
   belongs_to :user
-  has_many :party_participants
+  has_many :party_participants, dependent: :destroy
   has_many :friendships, through: :party_participants
 
-  validates_presence_of :user
-  validates_presence_of :movie_id
-  validates_presence_of :runtime
-  validates_presence_of :start
+  validates :user, presence: true
+  validates :movie_id, presence: true
+  validates :runtime, presence: true
+  validates :start, presence: true
 end
