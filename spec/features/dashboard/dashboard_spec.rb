@@ -69,7 +69,7 @@ RSpec.describe "Dashboard Page", type: :feature do
   describe "As a non-registered user" do
     it "can see 400 errors when trying to access the database" do
       visit "/dashboard"
-      expect(page).to have_content("Oops")
+      expect(page).to have_content("The page you were looking for doesn't exist.")
     end
 
     # it "can redirect you to welcome? (does this imply a custom 400 error page?)"
