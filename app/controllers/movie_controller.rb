@@ -1,5 +1,4 @@
 class MovieController < ApplicationController
-
   def top_forty
     @movies = MovieFacade.top_forty
   end
