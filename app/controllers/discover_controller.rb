@@ -1,3 +1,6 @@
 class DiscoverController < ApplicationController
-  def show; end
+  before_action :require_user
+  def show
+    @user = current_user
+  end
 end

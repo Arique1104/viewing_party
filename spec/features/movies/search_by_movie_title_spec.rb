@@ -4,10 +4,10 @@ RSpec.describe "Discover Landing Page" do
   describe "As an authorized user" do
     before(:each) do
       # will add back in once we establish authentication
-      # @wilmer = User.create!(email: "wilmer@example.com", password: "securepassword")
+      @wilmer = User.create!(name:"wilmer", email: "wilmer@example.com", password: "User@us3r")
       # # require "pry"; binding.pry
       #
-      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@wilmer)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@wilmer)
       @results = {:popularity=>1425.298,
                  :vote_count=>1762,
                  :video=>false,
