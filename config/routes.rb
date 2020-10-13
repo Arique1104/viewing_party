@@ -4,4 +4,5 @@ Rails.application.routes.draw do
 
   get '/discover', to: 'discover#show'
   get '/movies/top_forty', to: 'movie#top_forty'
+  get '/movies/search', to: 'movie#search'
 end
