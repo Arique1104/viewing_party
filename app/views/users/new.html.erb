@@ -5,6 +5,8 @@
 <h5>Please Register for an Account</h5>
 
 <%= form_tag '/users', method: :post do %>
+  <%= label_tag "First Name" %>
+  <%= text_field_tag :name %>
   <%= label_tag :email %>
   <%= text_field_tag :email %>
   <%= label_tag :password %>
