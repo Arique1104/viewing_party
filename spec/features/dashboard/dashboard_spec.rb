@@ -15,8 +15,11 @@ RSpec.describe "Dashboard Page", type: :feature do
       # @fluttershy = User.create!(name:"fluttershy", email:"fluttershy@email.com", password:"User@us3r")
 
       @twilight_sparkle.friendships.create!(friend:@spike)
+      @spike.friendships.create!(friend:@twilight_sparkle)
       @twilight_sparkle.friendships.create!(friend:@starlight_glimmer)
+      @starlight_glimmer.friendships.create!(friend:@twilight_sparkle)
       @rainbow_dash.friendships.create!(friend:@twilight_sparkle)
+      @twilight_sparkle.friendships.create!(friend:@rainbow_dash)
       # @party_1  = @twilight_sparkle.parties.create!(movie_id:"4", runtime:"12", date:"Oct 12, 1940", start:"12 pm")
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@twilight_sparkle)
@@ -44,10 +47,10 @@ RSpec.describe "Dashboard Page", type: :feature do
 
     it "can see friends section with friends you've added" do
       within "#friends" do
-        expect(page).to have_content(@spike.name)
-        expect(page).to have_content(@starlight_glimmer.name)
-        expect(page).to have_content(@rainbow_dash.name)
-        expect(page).to_not have_content(@pinkie_pie.name)
+        expect(page).to have_content(@spike.name.capitalize)
+        expect(page).to have_content(@starlight_glimmer.name.capitalize)
+        expect(page).to have_content(@rainbow_dash.name.capitalize)
+        expect(page).to_not have_content(@pinkie_pie.name.capitalize)
       end
     end
 
@@ -58,11 +61,19 @@ RSpec.describe "Dashboard Page", type: :feature do
         expect(page).to have_button("Add Friend")
         click_button "Add Friend"
         expect(current_path).to eq('/dashboard')
-        expect(page).to have_content(@pinkie_pie.name)
+        expect(page).to have_content(@pinkie_pie.name.capitalize)
       end
     end
 
-    it "can see error if friend is not in database (I'm sorry your friend cannot be found)"
+    it "can see error if friend is not in database (I'm sorry your friend cannot be found)" do
+      within "#friends" do
+        fill_in :email, with: "bad_email@email.com"
+        click_button "Add Friend"
+        expect(current_path).to eq('/dashboard')
+      end
+      expect(page).to have_content("I'm sorry your friend cannot be found")
+    end
+
     it "can see a parties section with pertinent info"
     #   # - Invited
       #   - Movie Title
@@ -86,7 +97,10 @@ RSpec.describe "Dashboard Page", type: :feature do
   describe "As a registered user with no friends" do
     before :each do
       @no_friend_user = User.create!(name:"Friendless", email:"bemyfriend@email.com", password:"User@us3r")
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@no_friend_user)
+
+      visit "/dashboard"
     end
 
     it "can see friends section is empty if no friends are added" do
