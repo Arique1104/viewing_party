@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  validates_presence_of :name
   validates :email, uniqueness: true, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, confirmation: true
   validate :password_complexity
@@ -15,6 +16,6 @@ class User < ApplicationRecord
 
     errors.add  :password,
                 'Complexity requirement not met.
-                Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character'
+                Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character(#?!@$%^&*-)'
   end
 end
