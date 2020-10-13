@@ -12,11 +12,11 @@ RSpec.describe "Dashboard Page", type: :feature do
       @spike = User.create!(email:"spike@email.com", password:"User@us3r")
       @starlight_glimmer = User.create!(email:"starlight_glimmer@email.com", password:"User@us3r")
 
-      @rainbow_dash.followers << [@rarity, @applejack, @twilight_sparkle]
-      @twilight_sparkle.followers << [@spike, @starlight_glimmer]
-      @pinkie_pie.followers << [@rainbow_dash, @twilight_sparkle, @rarity, @applejack, @fluttershy, @spike, @starlight_glimmer]
+      # @rainbow_dash.followers << [@rarity, @applejack, @twilight_sparkle]
+      # @twilight_sparkle.followers << [@spike, @starlight_glimmer]
+      # @pinkie_pie.followers << [@rainbow_dash, @twilight_sparkle, @rarity, @applejack, @fluttershy, @spike, @starlight_glimmer]
 
-      @party_1  = @twilight_sparkle.parties.create!(movie_id:"4", runtime:"12", date:"Oct 12, 1940", start:"12 pm")
+      # @party_1  = @twilight_sparkle.parties.create!(movie_id:"4", runtime:"12", date:"Oct 12, 1940", start:"12 pm")
 
       # THIS IS WHERE WE GET STUCK
       # - Do we need to update friendships? (if I friend you, shouldnt it automatically friend me back?)

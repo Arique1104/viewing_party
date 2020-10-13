@@ -2,10 +2,10 @@ class CreateParties < ActiveRecord::Migration[5.2]
   def change
     create_table :parties do |t|
       t.references :user, foreign_key: true
-      t.string :movie_id
+      t.integer :movie_id
       t.string :runtime
       t.string :date
-      t.string :start
+      t.string :start_time
 
       t.timestamps
     end
