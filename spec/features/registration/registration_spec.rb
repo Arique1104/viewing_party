@@ -63,7 +63,6 @@ RSpec.describe "User registration form" do
     fill_in :email, with: email
     fill_in :password, with: password
     fill_in :password_confirmation, with: password
-
     click_button "Register"
     expect(current_path).to eq("/register")
     expect(page).to have_content("ERROR: Name (can't be blank)")
@@ -128,7 +127,7 @@ RSpec.describe "User registration form" do
 
     click_button "Register"
     expect(current_path).to eq("/register")
-    expect(page).to have_content("ERROR: Password (Complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character)")
+    expect(page).to have_content("ERROR: Password (Complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character(#?!@$%^&*-))")
   end
 
   it "can give multiple error messages" do
