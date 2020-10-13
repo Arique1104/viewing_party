@@ -9,6 +9,15 @@
   </head>
 
   <body>
+    <nav>
+      <% if current_user %>
+        <%= link_to 'Sign Out', "/dashboard/signout" %>
+        <%= link_to 'My Dashboard', "/dashboard" %>
+      <% end %>
+    </nav>
+    <% flash.each do |type, message| %>
+      <p><%= message %></p>
+    <% end %>
     <main>
       <%= yield %>
     </main>
