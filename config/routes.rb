@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/discover', to: 'discover#show'
   get '/movies/top_forty', to: 'movie#top_forty'
   get '/movies/search', to: 'movie#search'
+
   get "/register", to: "users#new"
   post "/users", to: "users#create"
   get "/dashboard", to: "users#show"
