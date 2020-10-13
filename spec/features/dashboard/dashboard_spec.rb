@@ -26,10 +26,11 @@ RSpec.describe "Dashboard Page", type: :feature do
       # binding.pry
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@twilight_sparkle)
+
+      visit "/dashboard"
     end
 
     it "can have a dashboard page" do
-      visit "/dashboard"
       expect(page).to have_content("Welcome #{@twilight_sparkle.email}!")
       expect(page).to have_button("Discover Movies")
       within "#friends" do
@@ -40,7 +41,12 @@ RSpec.describe "Dashboard Page", type: :feature do
       end
     end
 
-    it "can route discover movies button to discover page"
+    it "can route discover movies button to discover page" do
+      click_button "Discover Movies"
+      expect(current_path).to eq("/discover")
+      expect(page).to have_content("Discover Show Page") # NEEDS TO BE UPDATED TO A DYNAMIC WELCOME HEADER
+    end
+
     it "can see friends section with pertinent info"
       # - test field for friends email
       # - button to "Add friend"
