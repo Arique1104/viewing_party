@@ -15,10 +15,14 @@ class MovieController < ApplicationController
       top_40 << json[:results]
       page += 1
     end
-    @results = top_40.flatten.sort_by do |result|
+    joined_results = top_40.flatten.sort_by do |result|
       result[:vote_average]
     end.reverse
-    require "pry"; binding.pry
+
+    @movies = joined_results.map do |movie_data|
+      Movie.new(movie_data)
+    end
+
   end
 
   def search

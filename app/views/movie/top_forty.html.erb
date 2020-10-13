@@ -1,11 +1,11 @@
 <h1>Discover Top Movies</h1>
 
-<% @results.each do |result| %>
+<% @movies.each do |movie| %>
 <br>
-<section id = "movie-<%result[:id]%>">
-   <h2>"<%= result[:title] %>"</h2>
-  <p>Vote Average: <%= result[:vote_average] %></p>
-  <p>Description: <%= result[:overview] %></p>
+<section id = "movie-<%movie.id%>">
+   <h2>"<%= movie.title %>"</h2>
+  <p>Vote Average: <%= movie.vote_average %></p>
+  <p>Description: <%= movie.description %></p>
 </section>
 <br>
 <% end %>
