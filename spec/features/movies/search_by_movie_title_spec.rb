@@ -1,16 +1,3 @@
-# As an authenticated user,
-# When I visit the '/discover' path
-# I should see
-#
-#  Button to Discover top 40 movies
-# Details When the user clicks on the top 40 button they should be taken to the movies page.
-#
-#  A text field to enter keyword(s) to search by movie title
-#  A Button to Search by Movie Title
-# Details When the user clicks on the Search button they should be taken to the movies page
-#
-# The movies will be retrieved by consuming The MovieDB API
-
 require "rails_helper"
 
 RSpec.describe "Discover Landing Page" do
@@ -48,16 +35,21 @@ RSpec.describe "Discover Landing Page" do
       visit '/discover'
       click_on "Top 40 Movies"
       expect(current_path).to eq('/movies/top_forty')
-# save_and_open_page
       json_response = File.read('spec/fixtures/top_forty_results.json')
       # parsed = JSON.parse(json_response, symbolize_names: true)
-
-      # require "pry"; binding.pry
 
       # stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV["MOVIE_API_KEY"]}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1")
 
       # expect(page).to have_content("Discover Top Movies")
       # expect(page).to have_content("Vote Average:")
+    end
+
+    it "can search for movies, limited by 40" do
+      visit '/discover'
+      fill_in :query, with: "Antman"
+      click_on "Search Movies"
+      expect(current_path).to eq("/movies/search")
+      expect(page).to have_content("Search Results")
     end
   end
 end
