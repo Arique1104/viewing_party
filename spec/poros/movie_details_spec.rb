@@ -162,7 +162,7 @@ RSpec.describe MovieDetails do
     expect(movie_details).to be_a MovieDetails
     expect(movie_details.title).to eq('Enola Holmes')
     expect(movie_details.vote_average).to eq(7.6)
-    expect(movie_details.runtime).to eq({:min=>3, :hr=>2})
+    expect(movie_details.runtime).to eq({:min=>3, :hr=>2, :total => 123})
     expect(movie_details.genres).to eq(["Crime", "Drama", "Mystery"])
     expect(movie_details.description).to eq("While searching for her missing mother, intrepid teen Enola Holmes uses her sleuthing skills to outsmart big brother Sherlock and help a runaway lord.")
     expect(movie_details.cast_members.count).to eq(10)
