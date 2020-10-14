@@ -39,3 +39,12 @@ class MovieService
     end.reverse
   end
 end
+
+# Discover Popular
+# https://api.themoviedb.org/3/discover/movie?api_key=d6fe1b901f996e1832774d5ae383dfc7&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
+
+#Search
+# https://api.themoviedb.org/3/search/movie?api_key=d6fe1b901f996e1832774d5ae383dfc7&language=en-US&query=Antman&page=1&include_adult=false
+#
+# Movie Details
+# https://api.themoviedb.org/3/movie/677638?api_key=d6fe1b901f996e1832774d5ae383dfc7&language=en-US
