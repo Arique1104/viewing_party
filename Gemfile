@@ -19,6 +19,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'figaro'
 gem 'faraday'
 
+gem 'bootstrap'
+gem 'jquery-rails'
+
 group :development, :test do
   gem 'pry'
   gem 'travis'
