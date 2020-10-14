@@ -1,5 +1,6 @@
 class MovieService
   def self.top_forty
+    # https://api.themoviedb.org/3/discover/movie?api_key=ENV['MOVIE_API_KEY']&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
     results = []
     page = 1
     2.times do
@@ -21,6 +22,7 @@ class MovieService
   end
 
   def self.search_movies(query)
+    # https://api.themoviedb.org/3/search/movie?api_key=ENV['MOVIE_API_KEY']&language=en-US&query=Antman&page=1&include_adult=false
     all_results = []
     page = 1
     2.times do
@@ -38,13 +40,36 @@ class MovieService
       result[:vote_average]
     end.reverse
   end
+
+  def self.movie_details(movie_id)
+    # https://api.themoviedb.org/3/movie/677638
+    # ?api_key=ENV['MOVIE_API_KEY']
+    # &language=en-US
+    response = Faraday.get("https://api.themoviedb.org/3/movie/#{movie_id}") do |faraday|
+      faraday.params[:api_key] = ENV['MOVIE_API_KEY']
+      faraday.params[:language] = 'en-US'
+    end
+    JSON.parse(response.body, symbolize_names: true)
+  end
+
+  def self.cast_details(movie_id)
+    # https://api.themoviedb.org/3/movie/677638/credits
+    # ?api_key=ENV['MOVIE_API_KEY']
+    response = Faraday.get("https://api.themoviedb.org/3/movie/#{movie_id}/credits") do |faraday|
+      faraday.params[:api_key] = ENV['MOVIE_API_KEY']
+    end
+    cast = JSON.parse(response.body, symbolize_names: true)
+    cast[:cast][0..9]
+  end
+
+  def self.reviews(movie_id)
+    # https://api.themoviedb.org/3/movie/337401/reviews
+    # ?api_key=ENV['MOVIE_API_KEY']
+    # &language=en-US&page=1
+    response = Faraday.get("https://api.themoviedb.org/3/movie/#{movie_id}/reviews") do |faraday|
+      faraday.params[:api_key] = ENV['MOVIE_API_KEY']
+      faraday.params[:language] = 'en-US'
+    end
+    JSON.parse(response.body, symbolize_names: true)
+  end
 end
-
-# Discover Popular
-# https://api.themoviedb.org/3/discover/movie?api_key=d6fe1b901f996e1832774d5ae383dfc7&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
-
-#Search
-# https://api.themoviedb.org/3/search/movie?api_key=d6fe1b901f996e1832774d5ae383dfc7&language=en-US&query=Antman&page=1&include_adult=false
-#
-# Movie Details
-# https://api.themoviedb.org/3/movie/677638?api_key=d6fe1b901f996e1832774d5ae383dfc7&language=en-US

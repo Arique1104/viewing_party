@@ -1,0 +1,43 @@
+<h1>Welcome <%= @user.name.capitalize %>!</h1>
+
+<section id = "title">
+  <%= @movie.title %>
+  <%= button_tag "Create Viewing Party for Movie" %>
+</section>
+
+<section id = "details">
+  <p> Vote Average: <%= @movie.vote_average %></p>
+  <p> Run Time: <%= @movie.runtime[:hr] %> hr <%= @movie.runtime[:min] %> min </p>
+
+  <p> Genre(s):
+    <%  @movie.genres.each do |genre| %>
+    <ul>
+      <%=  genre %>
+    </ul>
+    <% end %>
+  </p>
+
+</section>
+
+<section id = "summary">
+  <%= @movie.description %>
+</section>
+
+<section id = "cast">
+<% @movie.cast_members.each do |member| %>
+  <p> <%= member.name %> as <%= member.character %></p>
+<% end %>
+</section>
+
+<section id = "reviews">
+<p> <%= @movie.reviews.count %> Review(s) </p>
+
+
+  <% @movie.reviews.each do |review| %>
+      <section id = "reviews-<%=review.author %>">
+        <ul>  <%= review.author  %> </ul>
+        <ul>  <%= review.content_snippet %> </ul>
+      </section>
+    <% end %>
+
+</section>
