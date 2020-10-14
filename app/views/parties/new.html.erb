@@ -1,0 +1,42 @@
+<section id = 'header'>
+  <h1>Welcome <%= @user.name.capitalize %>!</h1>
+</section>
+
+<section id = 'party'>
+  <h4>Viewing Party Details</h4>
+  <%= form_with url: '/party' do |f| %>
+    <ul>
+      <%= f.label :movie_title, "Movie Title" %>
+      <%= f.text_field :movie_title, value: @movie.title, disabled: true %>
+    </ul>
+    <ul>
+      <%= f.label :duration_of_party, "Duration of Party" %>
+      <%= f.text_field :duration_of_party, value: @runtime %>
+    </ul>
+    <ul>
+      <div class="date-select">
+        <%= f.label :day %>
+        <%= f.date_select :day %>
+      </div>
+    </ul>
+    <ul>
+      <div class="time-select">
+        <%= f.label :start_time %>
+        <%= f.time_select :start_time, {ampm: true} %>
+      </div>
+    </ul>
+    <ul>
+      <%= f.submit ("Create Party") %>
+    </ul>
+  <% end %>
+</section>
+
+<section id = 'include-friends'>
+  <% @friendships.each do |friend| %>
+    <section id = 'friend-<%=friend.id %>'>
+      <ul>
+        <%= check_box_tag 'participants[]', friend.id %> <%= friend.name.titleize %>
+      </ul>
+    </section>
+  <% end %>
+</section>
