@@ -9,7 +9,7 @@ RSpec.describe "New Viewing Party Page", type: :feature do
       @starlight_glimmer = User.create!(name:"Starlight", email:"starlight_glimmer@email.com", password:"User@us3r")
       @pinkie_pie = User.create!(name:"pinkie", email:"pinkie_pie@email.com", password:"User@us3r")
 
-      @rainbow_dash = User.create!(name:"Rainbow Dash", email:"rainbow_dash1@email.com", password:"User@us3r")
+      @rainbow_dash = User.create!(name:"rainbow dash", email:"rainbow_dash1@email.com", password:"User@us3r")
 
       @twilight_sparkle.friendships.create!(friend:@spike)
       @spike.friendships.create!(friend:@twilight_sparkle)
@@ -45,7 +45,7 @@ RSpec.describe "New Viewing Party Page", type: :feature do
         click_button "Create Viewing Party for Movie"
       end
 
-      expect(current_path).to eq('/viewing-party/new')
+      expect(current_path).to eq("/#{@enola.id}/party/new")
       within '#header' do
         expect(page).to have_content("Welcome #{@twilight_sparkle.name.capitalize}!")
       end
@@ -54,37 +54,41 @@ RSpec.describe "New Viewing Party Page", type: :feature do
         expect(page).to have_content("Viewing Party Details")
 
         expect(page).to have_content("Movie Title")
-        expect(page).to have_content(@enola.title)
+        expect(page).to have_selector("input[name= 'movie_title']")
 
         expect(page).to have_content("Duration of Party")
-        expect(page).to have_content(@enola.runtime[:total])
-        fill_in :runtime, with: 200
+        expect(page).to have_selector("input[name= 'duration_of_party']")
+        fill_in :duration_of_party, with: 160
 
-        expect(page).to have_content("Day") # form needs to be in calendar format
-        fill_in :date, with: "Oct 15, 2020"
-
-        expect(page).to have_content("Start Time") # form needs to be in time format
-        fill_in :start_time, with: "7:00pm"
-
-        within '#include-friends' do
-          expect(page).to have_content(@spike.name)
-          expect(page).to have_content(@starlight_glimmer.name)
-          expect(page).to have_content(@rainbow_dash.name)
-
-          within  "friend-#{@spike.id}" do
-            page.check("participants_", :match => :first)
-            find(:css, "#participants_[value='#{@spike.name}']").set(true)
-          end
-          # <%= check_box_tag 'participants[]', friend/user.id %>
-          # checkboxes for all friends
+        expect(page).to have_content("Day")
+        within '.date-select' do
+          find("option[value='2020']").select_option
+          find("option[value='10']", text: 'October').select_option
+          find("option[value='15']", text: '15').select_option
         end
 
-        click_button "Create Party"
+        expect(page).to have_content("Start time")
+        within '.time-select' do
+          find("option[value='19']", text: '7 PM').select_option
+          find("option[value='00']", text: '00').select_option
+        end
       end
 
-    end
-    it "can see a failure if "
+      within '#include-friends' do
+        expect(page).to have_content(@spike.name.titleize)
+        expect(page).to have_content(@starlight_glimmer.name.titleize)
+        expect(page).to have_content(@rainbow_dash.name.titleize)
 
+        within "#friend-#{@spike.id}" do
+          page.check("participants_", :match => :first)
+          # find(:css, "#participants_[value='#{@spike.name.titleize}']").set(true)
+        end
+      end
+
+      click_button "Create Party"
+    end
+
+    it "can see a failure if "
   end
 
   # describe "As a non-registered user" do
