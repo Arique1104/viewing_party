@@ -48,3 +48,9 @@ end
 #
 # Movie Details
 # https://api.themoviedb.org/3/movie/677638?api_key=d6fe1b901f996e1832774d5ae383dfc7&language=en-US
+
+#Cast Information
+# https://api.themoviedb.org/3/movie/677638/credits?api_key=d6fe1b901f996e1832774d5ae383dfc7
+
+# Reviews
+ # https://api.themoviedb.org/3/movie/337401/reviews?api_key=d6fe1b901f996e1832774d5ae383dfc7&language=en-US&page=1
