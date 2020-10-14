@@ -28,7 +28,7 @@ class MovieService
         faraday.params[:api_key] = ENV['MOVIE_API_KEY']
         faraday.params[:language] = 'en-US'
         faraday.params[:query] = query
-        faraday.params[:page] = 1
+        faraday.params[:page] = page
       end
       json = JSON.parse(response.body, symbolize_names: true)
       all_results << json[:results]
