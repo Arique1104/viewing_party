@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ViewingParty</title>
+    <title>Viewing Party</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -9,19 +9,30 @@
   </head>
 
   <body>
-    <nav>
-      <% if current_user %>
-        <%= link_to 'Sign Out', "/dashboard/signout" %>
-        <%= link_to 'My Dashboard', "/dashboard" %>
-      <% end %>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <% if current_user %>
+            <a class="nav-link" href="/dashboard/signout">Sign Out</a>
+            <a class="nav-link" href="/dashboard">My Dashboard</a>
+          <% end %>
+        </div>
+      </div>
     </nav>
+
     <% flash.each do |type, message| %>
       <p><%= message %></p>
     <% end %>
+
     <main>
       <%= yield %>
     </main>
-    <footer>
+
+    <footer class="footer">
       <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="The MovieDB Logo" width="75px" style="margin:10px" >
       <div>
         <p>
@@ -30,6 +41,7 @@
         <p>
           Further citation information regarding the movie data used in this project can be found <a href="http://files.grouplens.org/datasets/movielens/ml-latest-small-README.html">here.</a>
         </p>
+        <p style="font-size: 0.9rem;font-style: italic;"><a href="https://www.flickr.com/photos/85775143@N08/7851708528">"film"</a><span> by <a href="https://www.flickr.com/photos/85775143@N08">popturfdotcom</a></span> is licensed under <a href="https://creativecommons.org/licenses/by/2.0/?ref=ccsearch&atype=html" style="margin-right: 5px;">CC BY 2.0</a><a href="https://creativecommons.org/licenses/by/2.0/?ref=ccsearch&atype=html" target="_blank" rel="noopener noreferrer" style="display: inline-block;white-space: none;margin-top: 2px;margin-left: 3px;height: 22px !important;"><img style="height: inherit;margin-right: 3px;display: inline-block;" src="https://search.creativecommons.org/static/img/cc_icon.svg?image_id=e4ef4e60-bf03-4e46-acae-8f35a6e4e023" /><img style="height: inherit;margin-right: 3px;display: inline-block;" src="https://search.creativecommons.org/static/img/cc-by_icon.svg" /></a></p>
       </div>
     </footer>
   </body>

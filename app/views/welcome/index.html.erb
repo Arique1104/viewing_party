@@ -1,19 +1,73 @@
-<!-- This needs to be centered and very large font -->
-<h1>Welcome to Viewing Party</h1>
+<div class="jumbotron text-center">
+  <h1>Welcome to Viewing Party</h1>
+</div>
 
-<!-- This needs to be centered and significantly smaller font -->
-<h5>This application lets you explore movies and create a viewing party event for you and your friends to watch a movie together.</h5>
+<div class="container">
+  <div class="row vertical-center">
+    <div class="col-sm-4">
+      <h6>This application lets you explore movies and create a viewing party event for you and your friends to watch a movie together.</h6>
 
-<!-- This needs to be centered under the description -->
-<%= form_tag "/dashboard" do %>
-  <%= label_tag :email %>
-  <%= email_field_tag :email %>
+        <%= form_tag "/dashboard" do %>
+        <%= label_tag :email %>
+        <%= email_field_tag :email %>
 
-  <%= label_tag :password %>
-  <%= password_field_tag :password %>
+        <%= label_tag :password %>
+        <%= password_field_tag :password %>
 
-  <%= submit_tag 'Sign In', class: :button %>
-<% end %>
+        <%= submit_tag 'Sign In', class: :button %>
+        <% end %>
 
-<!-- Centered under "sign in" button -->
-<%= link_to "New to Viewing Party? Register Here", "/register" %>
+        <%= link_to "New to Viewing Party? Register Here", "/register" %>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<div class="brand_logo_container">
+						<img src="https://live.staticflickr.com/8302/7851708528_9849a3e0d0.jpg" class="brand_logo" alt="Logo">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" name="" class="form-control input_user" value="" placeholder="username">
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input type="password" name="" class="form-control input_pass" value="" placeholder="password">
+						</div>
+						<div class="form-group">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="customControlInline">
+								<label class="custom-control-label" for="customControlInline">Remember me</label>
+							</div>
+						</div>
+							<div class="d-flex justify-content-center mt-3 login_container">
+				 	<button type="button" name="button" class="btn login_btn">Login</button>
+				   </div>
+					</form>
+				</div>
+
+				<div class="mt-4">
+					<div class="d-flex justify-content-center links">
+						Don't have an account? <a href="#" class="ml-2">Sign Up</a>
+					</div>
+					<div class="d-flex justify-content-center links">
+						<a href="#">Forgot your password?</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
