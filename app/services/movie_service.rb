@@ -22,23 +22,31 @@ class MovieService
   end
 
   def self.search_movies(query)
-    # https://api.themoviedb.org/3/search/movie?api_key=ENV['MOVIE_API_KEY']&language=en-US&query=Antman&page=1&include_adult=false
+    all_results = format_json(query)
+    all_results.flatten.sort_by do |result|
+      result[:vote_average]
+    end.reverse
+  end
+
+  def self.format_json(query)
     all_results = []
     page = 1
     2.times do
-      response = Faraday.get('https://api.themoviedb.org/3/search/movie') do |faraday|
-        faraday.params[:api_key] = ENV['MOVIE_API_KEY']
-        faraday.params[:language] = 'en-US'
-        faraday.params[:query] = query
-        faraday.params[:page] = page
-      end
+      response = format_faraday(query, page)
       json = JSON.parse(response.body, symbolize_names: true)
       all_results << json[:results]
       page += 1
     end
-    all_results.flatten.sort_by do |result|
-      result[:vote_average]
-    end.reverse
+    all_results
+  end
+
+  def self.format_faraday(query, page)
+    Faraday.get('https://api.themoviedb.org/3/search/movie') do |faraday|
+      faraday.params[:api_key] = ENV['MOVIE_API_KEY']
+      faraday.params[:language] = 'en-US'
+      faraday.params[:query] = query
+      faraday.params[:page] = page
+    end
   end
 
   def self.movie_details(movie_id)
