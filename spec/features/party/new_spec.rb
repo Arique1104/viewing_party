@@ -91,7 +91,6 @@ RSpec.describe "New Viewing Party Page", type: :feature do
 
           click_button "Create Party"
           expect(current_path).to eq('/dashboard')
-          save_and_open_page
     #       party = Party.last
     #       # party_check = Party.where(movie_title: @enola.movie_title)
     #
@@ -116,7 +115,43 @@ RSpec.describe "New Viewing Party Page", type: :feature do
       end
 
 
-      it "can see a failure if "
+      it "can see a failure if " do
+        visit "/movies/#{@enola.id}"
+        within '#title' do
+          click_button "Create Viewing Party for Movie"
+        end
+
+        expect(current_path).to eq("/#{@enola.id}/party/new")
+        within '#header' do
+          expect(page).to have_content("Welcome #{@twilight_sparkle.name.capitalize}!")
+        end
+
+        within '#party' do
+          expect(page).to have_content("Viewing Party Details")
+
+          expect(page).to have_content("Movie Title")
+          expect(page).to have_selector("input[name= 'movie_title']")
+
+          expect(page).to have_content("Duration of Party")
+          expect(page).to have_selector("input[name= 'runtime']")
+          fill_in :runtime, with: 160
+
+          expect(page).to have_content("Day")
+          within '.date-select' do
+            find("option[value='2020']").select_option
+            find("option[value='10']", text: 'October').select_option
+            find("option[value='15']", text: '15').select_option
+          end
+
+          expect(page).to have_content("Start time")
+          within '.time-select' do
+            find("option[value='19']", text: '7 PM').select_option
+            find("option[value='00']", text: '00').select_option
+          end
+          click_button "Create Party"
+          expect(current_path).to eq("/party")
+        end
+      end
     end
 
     # describe "As a non-registered user" do
