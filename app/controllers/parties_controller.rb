@@ -7,11 +7,9 @@ class PartiesController < ApplicationController
   end
 
   def create
-    schedule = Schedule.new(party_params)
-    new_party = current_user.parties.new(movie_title: party_params[:movie_title], runtime: party_params[:runtime], date: schedule.date, start_time: schedule.start_time)
+    new_party = format_party
     if new_party.save && params[:participants]
-      participants = User.where(id: params[:participants])
-      participants.each do |participant|
+      User.where(id: params[:participants]).each do |participant|
         new_party.party_participants.create(user: participant)
       end
       redirect_to '/dashboard'
@@ -25,5 +23,16 @@ class PartiesController < ApplicationController
 
   def party_params
     params.permit(:movie_title, :runtime, 'day(1i)', 'day(2i)', 'day(3i)', 'start_time(4i)', 'start_time(5i)')
+  end
+
+  def format_party
+    schedule = Schedule.new(party_params)
+
+    current_user.parties.new(
+      movie_title: party_params[:movie_title],
+      runtime: party_params[:runtime],
+      date: schedule.date,
+      start_time: schedule.start_time
+    )
   end
 end
