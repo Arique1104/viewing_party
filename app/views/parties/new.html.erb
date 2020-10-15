@@ -4,7 +4,7 @@
 
 <section id = 'party'>
   <h4>Viewing Party Details</h4>
-  <%= form_with url: "/#{@movie.id}/party" do |f| %>
+  <%= form_with url: "/#{@movie.id}/party", local: true do |f| %>
     <ul>
       <%= f.label :movie_title, "Movie Title" %>
       <%= f.text_field :movie_title, value: @movie.title, readonly: true %>

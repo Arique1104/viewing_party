@@ -15,8 +15,8 @@ class PartiesController < ApplicationController
       User.where(id: params[:participants]).each { |p| new_party.party_participants.create(user: p) }
       redirect_to '/dashboard'
     else
-      redirect_to "/#{params[:movie_id]}/party/new"
       flash[:errors] = 'You did not add any friends!'
+      redirect_to "/#{params[:movie_id]}/party/new"
     end
   end
 
