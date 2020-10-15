@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   get '/', to: 'welcome#index', as: :welcome
   get '/discover', to: 'discover#show'
 
-  get '/movies/top_forty', to: 'movie#top_forty'
-  get '/movies/search', to: 'movie#search'
+  get '/movies', to: 'movie#index'
   get '/movies/:id', to: 'movie#show'
 
   get '/register', to: 'users#new'
