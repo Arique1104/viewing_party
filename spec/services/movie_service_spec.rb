@@ -4,6 +4,7 @@ describe MovieService do
   context "instance methods" do
     context "#top_forty" do
       it "returns movie data" do
+        require "pry"; binding.pry
         results = MovieService.top_forty
 
         expect(results.count).to be_between(1, 40)

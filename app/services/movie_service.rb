@@ -1,21 +1,6 @@
 class MovieService
   def self.top_forty
-    # https://api.themoviedb.org/3/discover/movie?api_key=ENV['MOVIE_API_KEY']&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
-    results = []
-    page = 1
-    2.times do
-      response = Faraday.get('https://api.themoviedb.org/3/discover/movie') do |faraday|
-        faraday.params[:api_key] = ENV['MOVIE_API_KEY']
-        faraday.params[:language] = 'en-US'
-        faraday.params[:sort_by] = 'popularity.desc'
-        faraday.params[:include_adult] = false
-        faraday.params[:include_video] = false
-        faraday.params[:page] = page
-      end
-      json = JSON.parse(response.body, symbolize_names: true)
-      results << json[:results]
-      page += 1
-    end
+    results = format_json(false)
     results.flatten.sort_by do |result|
       result[:vote_average]
     end.reverse
@@ -29,10 +14,11 @@ class MovieService
   end
 
   def self.format_json(query)
+    require "pry"; binding.pry
     all_results = []
     page = 1
     2.times do
-      response = format_faraday(query, page)
+      response = format_faraday_for(query, page)
       json = JSON.parse(response.body, symbolize_names: true)
       all_results << json[:results]
       page += 1
@@ -40,7 +26,18 @@ class MovieService
     all_results
   end
 
-  def self.format_faraday(query, page)
+  def self.format_faraday_for(query, page)
+    if query == false
+      require "pry"; binding.pry
+    Faraday.get('https://api.themoviedb.org/3/discover/movie') do |faraday|
+      faraday.params[:api_key] = ENV['MOVIE_API_KEY']
+      faraday.params[:language] = 'en-US'
+      faraday.params[:sort_by] = 'popularity.desc'
+      faraday.params[:include_adult] = false
+      faraday.params[:include_video] = false
+      faraday.params[:page] = page
+    end
+    else
     Faraday.get('https://api.themoviedb.org/3/search/movie') do |faraday|
       faraday.params[:api_key] = ENV['MOVIE_API_KEY']
       faraday.params[:language] = 'en-US'
