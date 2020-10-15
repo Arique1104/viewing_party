@@ -18,6 +18,12 @@ RSpec.describe "Dashboard Page", type: :feature do
       @rainbow_dash.friendships.create!(friend:@twilight_sparkle)
       @twilight_sparkle.friendships.create!(friend:@rainbow_dash)
 
+      @invited_party = @rainbow_dash.parties.create!(movie_title: "Monsters, Inc", runtime: 140, date: "10/24/2020", start_time: "18:00")
+      @invited_party.party_participants.create!(user:@twilight_sparkle)
+      @my_party = @twilight_sparkle.parties.create!(movie_title: "Enola Holmes", runtime: 160, date: "10/17/2020", start_time: "19:00")
+      @my_party.party_participants.create!(user:@spike)
+      @my_party.party_participants.create!(user:@starlight_glimmer)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@twilight_sparkle)
 
       visit "/dashboard"
@@ -70,15 +76,23 @@ RSpec.describe "Dashboard Page", type: :feature do
       expect(page).to have_content("I'm sorry your friend cannot be found")
     end
 
-    it "can see a parties section with pertinent info"
-    #   # - Invited
-      #   - Movie Title
-      #   - Date and Time
-      #   - Status == Invited
-      # - Created
-      #   - Movie Title
-      #   - Date and Time
-      #   - Status == Host
+    it "can see a parties section with pertinent info" do
+      within '#parties' do
+        within "#party-#{@my_party.id}" do
+          expect(page).to have_content(@my_party.movie_title)
+          expect(page).to have_content(@my_party.date)
+          expect(page).to have_content(@my_party.start_time)
+          expect(page).to have_content("Hosting")
+        end
+
+        within "#party-#{@invited_party.id}" do
+          expect(page).to have_content(@invited_party.movie_title)
+          expect(page).to have_content(@invited_party.date)
+          expect(page).to have_content(@invited_party.start_time)
+          expect(page).to have_content("Invited")
+        end
+      end
+    end
   end
 
   describe "As a non-registered user" do
@@ -86,8 +100,6 @@ RSpec.describe "Dashboard Page", type: :feature do
       visit "/dashboard"
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
-
-    # it "can redirect you to welcome? (does this imply a custom 400 error page?)"
   end
 
   describe "As a registered user with no friends" do

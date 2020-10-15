@@ -10,7 +10,6 @@
     <%= text_field_tag :email %>
     <%= submit_tag "Add Friend", class: :button %>
   <% end %>
-  <!-- Friends list OR 'You currently have no friends.' -->
   <% if @user.friendships.empty? %>
     <p>You currently have no friends</p>
   <% else %>
@@ -23,39 +22,36 @@
 </section>
 <section id="parties">
   <h3>Viewing Parties</h3>
-
     <% @my_parties.each do |party| %>
-    <section id= 'party-<%=party.id%>'>
-
-      <ul>
-         <%= party.movie_title %>
-      </ul>
-      <ul>
-        <%= party.date %>
-      </ul>
-      <ul>
-        <%= party.start_time %>
-      </ul>
-      <ul>
-        Hosting
-      </ul>
+      <section id= 'party-<%=party.id%>'>
+        <ul>
+           <%= party.movie_title %>
+        </ul>
+        <ul>
+          <%= party.date %>
+        </ul>
+        <ul>
+          <%= party.start_time %>
+        </ul>
+        <ul>
+          Hosting
+        </ul>
+      </section>
     <% end %>
-  </section>
     <% @invited_parties.each do |party| %>
-    <section id= 'party-<%=party.id%>'>
-
-      <ul>
-         <%= party.movie_title %>
-      </ul>
-      <ul>
-        <%= party.date %>
-      </ul>
-      <ul>
-        <%= party.start_time %>
-      </ul>
-      <ul>
-        Invited
-      </ul>
+      <section id= 'party-<%=party.id%>'>
+        <ul>
+           <%= party.movie_title %>
+        </ul>
+        <ul>
+          <%= party.date %>
+        </ul>
+        <ul>
+          <%= party.start_time %>
+        </ul>
+        <ul>
+          Invited
+        </ul>
+      </section>
     <% end %>
-  </section>
 </section>
