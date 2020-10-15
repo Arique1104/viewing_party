@@ -1,4 +1,6 @@
 class PartiesController < ApplicationController
+  before_action :require_user
+  
   def new
     @user = current_user
     @movie = MovieFacade.movie_details(params[:movie_id])
