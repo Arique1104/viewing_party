@@ -1,10 +1,10 @@
 class MovieService
-
   def self.top_forty
     results = []
     page = 1
+    url = "/3/discover/movie?api_key=#{ENV['MOVIE_API_KEY']}&#{language}&#{sort}&#{adult}&#{video}&page=#{page}"
     2.times do
-      response = conn.get("/3/discover/movie?api_key=#{ENV['MOVIE_API_KEY']}&#{language}&#{sort}&#{adult}&#{video}&page=#{page}")
+      response = conn.get(url)
       json = JSON.parse(response.body, symbolize_names: true)
       results << json[:results]
       page += 1
@@ -15,8 +15,9 @@ class MovieService
   def self.search_movies(query)
     results = []
     page = 1
+    url = "/3/search/movie?api_key=#{ENV['MOVIE_API_KEY']}&#{language}&query=#{query}&page=#{page}&#{adult}"
     2.times do
-      response = conn.get("/3/search/movie?api_key=#{ENV['MOVIE_API_KEY']}&#{language}&query=#{query}&page=#{page}&#{adult}")
+      response = conn.get(url)
       json = JSON.parse(response.body, symbolize_names: true)
       results << json[:results]
       page += 1
@@ -62,9 +63,7 @@ class MovieService
     'language=en-US'
   end
 
-  private
-
   def self.conn
-    Faraday.new(url: "https://api.themoviedb.org")
+    Faraday.new(url: 'https://api.themoviedb.org')
   end
 end

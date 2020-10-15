@@ -1,6 +1,6 @@
 class PartiesController < ApplicationController
   before_action :require_user
-  
+
   def new
     @user = current_user
     @movie = MovieFacade.movie_details(params[:movie_id])
@@ -15,9 +15,6 @@ class PartiesController < ApplicationController
         new_party.party_participants.create(user: participant)
       end
       redirect_to '/dashboard'
-    else
-      generate_flash(new_party)
-      '/party'
     end
   end
 
