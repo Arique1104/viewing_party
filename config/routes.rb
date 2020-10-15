@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   get '/', to: 'welcome#index', as: :welcome
   get '/discover', to: 'discover#show'
 
-  get '/movies/top_forty', to: 'movie#top_forty'
-  get '/movies/search', to: 'movie#search'
+  get '/movies', to: 'movie#index'
   get '/movies/:id', to: 'movie#show'
 
   get '/register', to: 'users#new'
@@ -13,5 +12,5 @@ Rails.application.routes.draw do
   post '/friends', to: 'users#add_friend'
 
   get '/:movie_id/party/new', to: 'parties#new'
-  post '/party', to: 'parties#create'
+  post '/:movie_id/party', to: 'parties#create'
 end

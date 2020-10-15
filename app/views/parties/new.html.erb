@@ -4,12 +4,10 @@
 
 <section id = 'party'>
   <h4>Viewing Party Details</h4>
-  <%= form_with url: '/party' do |f| %>
+  <%= form_with url: "/#{@movie.id}/party" do |f| %>
     <ul>
       <%= f.label :movie_title, "Movie Title" %>
       <%= f.text_field :movie_title, value: @movie.title, readonly: true %>
-      <%= f.label :movie_id, "Movie ID" %>
-      <%= f.text_field :movie_id, value: @movie.id, readonly: true %>
     </ul>
     <ul>
       <%= f.label :runtime, "Duration of Party" %>

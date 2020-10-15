@@ -1,6 +1,6 @@
 class PartiesController < ApplicationController
   before_action :require_user
-  
+
   def new
     @user = current_user
     @movie = MovieFacade.movie_details(params[:movie_id])
@@ -16,8 +16,8 @@ class PartiesController < ApplicationController
       end
       redirect_to '/dashboard'
     else
-      generate_flash(new_party)
-      '/party'
+      redirect_to "/#{params[:movie_id]}/party/new"
+      flash[:errors] = 'You did not add any friends!'
     end
   end
 
