@@ -2,8 +2,8 @@ class MovieService
   def self.top_forty
     results = []
     page = 1
-    url = "/3/discover/movie?api_key=#{ENV['MOVIE_API_KEY']}&#{language}&#{sort}&#{adult}&#{video}&page=#{page}"
     2.times do
+      url = "/3/discover/movie?api_key=#{ENV['MOVIE_API_KEY']}&#{language}&#{sort}&#{adult}&#{video}&page=#{page}"
       response = conn.get(url)
       json = JSON.parse(response.body, symbolize_names: true)
       results << json[:results]
@@ -15,8 +15,8 @@ class MovieService
   def self.search_movies(query)
     results = []
     page = 1
-    url = "/3/search/movie?api_key=#{ENV['MOVIE_API_KEY']}&#{language}&query=#{query}&page=#{page}&#{adult}"
     2.times do
+      url = "/3/search/movie?api_key=#{ENV['MOVIE_API_KEY']}&#{language}&query=#{query}&page=#{page}&#{adult}"
       response = conn.get(url)
       json = JSON.parse(response.body, symbolize_names: true)
       results << json[:results]
