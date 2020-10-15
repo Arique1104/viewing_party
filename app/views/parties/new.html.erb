@@ -8,6 +8,8 @@
     <ul>
       <%= f.label :movie_title, "Movie Title" %>
       <%= f.text_field :movie_title, value: @movie.title, readonly: true %>
+      <%= f.label :movie_id, "Movie ID" %>
+      <%= f.text_field :movie_id, value: @movie.id, readonly: true %>
     </ul>
     <ul>
       <%= f.label :runtime, "Duration of Party" %>
