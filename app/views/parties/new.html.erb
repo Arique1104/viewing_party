@@ -7,11 +7,11 @@
   <%= form_with url: '/party' do |f| %>
     <ul>
       <%= f.label :movie_title, "Movie Title" %>
-      <%= f.text_field :movie_title, value: @movie.title, disabled: true %>
+      <%= f.text_field :movie_title, value: @movie.title, readonly: true %>
     </ul>
     <ul>
-      <%= f.label :duration_of_party, "Duration of Party" %>
-      <%= f.text_field :duration_of_party, value: @runtime %>
+      <%= f.label :runtime, "Duration of Party" %>
+      <%= f.text_field :runtime, value: @runtime %>
     </ul>
     <ul>
       <div class="date-select">
