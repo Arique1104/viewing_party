@@ -5,7 +5,7 @@ RSpec.describe "Discover Landing Page" do
     before(:each) do
       @wilmer = User.create!(name:"wilmer", email: "wilmer@example.com", password: "User@us3r")
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@wilmer)
-      @results = {:popularity=>1425.298,
+      results = {:popularity=>1425.298,
                  :vote_count=>1762,
                  :video=>false,
                  :poster_path=>"/riYInlsq2kf1AWoGm80JQW5dLKp.jpg",
@@ -20,6 +20,7 @@ RSpec.describe "Discover Landing Page" do
                  :overview=>
                   "While searching for her missing mother, intrepid teen Enola Holmes uses her sleuthing skills to outsmart big brother Sherlock and help a runaway lord.",
                  :release_date=>"2020-09-23"}
+      @movie = MovieFacade.movie_details(results[:id])
     end
     it "can click on button for top 40 movies return" do
       visit '/discover'
@@ -30,21 +31,15 @@ RSpec.describe "Discover Landing Page" do
       visit '/discover'
       click_on "Top 40 Movies"
       expect(current_path).to eq('/movies')
-      # json_response = File.read('spec/fixtures/top_forty_results.json')
-      # parsed = JSON.parse(json_response, symbolize_names: true)
-
-      # stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV["MOVIE_API_KEY"]}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1")
-
-      # expect(page).to have_content("Discover Top Movies")
-      # expect(page).to have_content("Vote Average:")
+      expect(page).to have_link(@movie.title)
     end
 
     it "can search for movies, limited by 40" do
       visit '/discover'
-      fill_in :query, with: "Antman"
+      fill_in :query, with: "Enola Holmes"
       click_on "Search Movies"
       expect(current_path).to eq("/movies")
-      # expect(page).to have_content("Search Results")
+      expect(page).to have_link(@movie.title)
     end
   end
 
