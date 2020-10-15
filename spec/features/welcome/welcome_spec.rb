@@ -32,7 +32,7 @@ RSpec.describe "Welcome Page" do
     end
 
     #Exploration topic? ActionMailer?
-    it "can show a link for forgot password email reset"
+    # it "can show a link for forgot password email reset"
 
     it "can show a flash message and redirect back to welcome if login email is incorrect" do
       fill_in :email, with:@pinkie_pie.email
