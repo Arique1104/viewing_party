@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post '/users', to: 'users#create'
   get '/dashboard', to: 'users#show'
   post '/dashboard', to: 'sessions#create'
+  get '/dashboard/signout', to: 'sessions#delete'
   post '/friends', to: 'users#add_friend'
 
   get '/:movie_id/party/new', to: 'parties#new'
