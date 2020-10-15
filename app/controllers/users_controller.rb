@@ -16,6 +16,9 @@ class UsersController < ApplicationController
   def show
     @user = current_user
     @friendships = User.where(id: @user.friendships.pluck(:friend_id))
+    @my_parties = @user.parties
+    party_ids = PartyParticipant.where(user: @user).pluck(:party_id)
+    @invited_parties = Party.where(id: party_ids)
   end
 
   def add_friend

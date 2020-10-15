@@ -27,8 +27,8 @@ class MovieDetails
     results
   end
 
-  def format_runtime(minutes)
-    decimal = minutes.to_f / 60
+  def format_runtime(min)
+    decimal = min.to_f / 60
 
     minutes = (decimal.to_s[-3..-1].to_f * 60).to_i
 
@@ -36,7 +36,8 @@ class MovieDetails
 
     {
       min: minutes,
-      hr: hours
+      hr: hours,
+      total: min
     }
   end
 

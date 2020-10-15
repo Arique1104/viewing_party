@@ -2,7 +2,7 @@
 
 <section id = "title">
   <%= @movie.title %>
-  <%= button_tag "Create Viewing Party for Movie" %>
+  <%= button_to "Create Viewing Party for Movie", "/#{@movie.id}/party/new", method: :get %>
 </section>
 
 <section id = "details">

@@ -2,5 +2,5 @@
 <%= button_to "Top 40 Movies", "/movies/top_forty", method: :get %>
 
 <%= form_tag "/movies/search", method: :get %>
-<%= text_field_tag(:query, params[:query]) %>
+  <%= text_field_tag(:query, params[:query]) %>
 <%= submit_tag ("Search Movies") %>

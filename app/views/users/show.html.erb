@@ -23,5 +23,39 @@
 </section>
 <section id="parties">
   <h3>Viewing Parties</h3>
-  <!-- Card with image; movie title; date of party; time of party; statys(hosting or invited) -->
+
+    <% @my_parties.each do |party| %>
+    <section id= 'party-<%=party.id%>'>
+
+      <ul>
+         <%= party.movie_title %>
+      </ul>
+      <ul>
+        <%= party.date %>
+      </ul>
+      <ul>
+        <%= party.start_time %>
+      </ul>
+      <ul>
+        Hosting
+      </ul>
+    <% end %>
+  </section>
+    <% @invited_parties.each do |party| %>
+    <section id= 'party-<%=party.id%>'>
+
+      <ul>
+         <%= party.movie_title %>
+      </ul>
+      <ul>
+        <%= party.date %>
+      </ul>
+      <ul>
+        <%= party.start_time %>
+      </ul>
+      <ul>
+        Invited
+      </ul>
+    <% end %>
+  </section>
 </section>

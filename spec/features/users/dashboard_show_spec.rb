@@ -10,9 +10,6 @@ RSpec.describe "Dashboard Page", type: :feature do
       @pinkie_pie = User.create!(name:"pinkie", email:"pinkie_pie@email.com", password:"User@us3r")
 
       @rainbow_dash = User.create!(name:"Rainbow Dash", email:"rainbow_dash1@email.com", password:"User@us3r")
-      # @rarity = User.create!(name:"rarity", email:"rarity@email.com", password:"User@us3r")
-      # @applejack = User.create!(name:"applejack", email:"applejack@email.com", password:"User@us3r")
-      # @fluttershy = User.create!(name:"fluttershy", email:"fluttershy@email.com", password:"User@us3r")
 
       @twilight_sparkle.friendships.create!(friend:@spike)
       @spike.friendships.create!(friend:@twilight_sparkle)
@@ -20,7 +17,6 @@ RSpec.describe "Dashboard Page", type: :feature do
       @starlight_glimmer.friendships.create!(friend:@twilight_sparkle)
       @rainbow_dash.friendships.create!(friend:@twilight_sparkle)
       @twilight_sparkle.friendships.create!(friend:@rainbow_dash)
-      # @party_1  = @twilight_sparkle.parties.create!(movie_id:"4", runtime:"12", date:"Oct 12, 1940", start:"12 pm")
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@twilight_sparkle)
 
