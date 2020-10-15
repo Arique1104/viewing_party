@@ -25,18 +25,17 @@
         <%= f.time_select :start_time, {ampm: true} %>
       </div>
     </ul>
+    <section id = 'include-friends'>
+      <% @friendships.each do |friend| %>
+      <section id = 'friend-<%=friend.id %>'>
+        <ul>
+          <%= check_box_tag 'participants[]', friend.id %> <%= friend.name.titleize %>
+        </ul>
+      </section>
+      <% end %>
+    </section>
     <ul>
       <%= f.submit ("Create Party") %>
     </ul>
-  <% end %>
-</section>
-
-<section id = 'include-friends'>
-  <% @friendships.each do |friend| %>
-    <section id = 'friend-<%=friend.id %>'>
-      <ul>
-        <%= check_box_tag 'participants[]', friend.id %> <%= friend.name.titleize %>
-      </ul>
-    </section>
   <% end %>
 </section>
