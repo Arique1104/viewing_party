@@ -57,8 +57,8 @@ RSpec.describe "New Viewing Party Page", type: :feature do
         expect(page).to have_selector("input[name= 'movie_title']")
 
         expect(page).to have_content("Duration of Party")
-        expect(page).to have_selector("input[name= 'duration_of_party']")
-        fill_in :duration_of_party, with: 160
+        expect(page).to have_selector("input[name= 'runtime']")
+        fill_in :runtime, with: 160
 
         expect(page).to have_content("Day")
         within '.date-select' do
@@ -86,6 +86,14 @@ RSpec.describe "New Viewing Party Page", type: :feature do
       end
 
       click_button "Create Party"
+      expect(current_path).to eq('/dashboard')
+      party = Party.last
+      within '#parties' do
+        expect(page).to have_content(party.title)
+        expect(page).to have_content(party.day)
+        expect(page).to have_content(party.time)
+        expect(page).to have_content(party.status)
+      end
     end
 
     it "can see a failure if "
