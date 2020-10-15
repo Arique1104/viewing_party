@@ -12,9 +12,7 @@ class PartiesController < ApplicationController
     new_party = current_user.parties.new(format_party)
     if params[:participants]
       new_party.save
-      User.where(id: params[:participants]).each do |participant|
-        new_party.party_participants.create(user: participant)
-      end
+      User.where(id: params[:participants]).each { |p| new_party.party_participants.create(user: p) }
       redirect_to '/dashboard'
     else
       redirect_to "/#{params[:movie_id]}/party/new"
