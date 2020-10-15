@@ -8,10 +8,10 @@ class MovieController < ApplicationController
 
   def index
     @user = current_user
-    if params[:query].nil?
-      @movies = MovieFacade.top_forty
-    else
+    if params[:query]
       @movies = MovieFacade.search(params[:query])
+    else
+      @movies = MovieFacade.top_forty
     end
   end
 end

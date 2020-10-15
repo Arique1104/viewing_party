@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   post '/friends', to: 'users#add_friend'
 
   get '/:movie_id/party/new', to: 'parties#new'
-  post '/party', to: 'parties#create'
+  post '/:movie_id/party', to: 'parties#create'
 end

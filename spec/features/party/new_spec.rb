@@ -37,10 +37,11 @@ RSpec.describe "New Viewing Party Page", type: :feature do
         @enola = MovieFacade.movie_details(movie[:id])
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@twilight_sparkle)
+
+        visit "/movies/#{@enola.id}"
       end
 
       it "can create a new party routed from a movie details page" do
-        visit "/movies/#{@enola.id}"
         within '#title' do
           click_button "Create Viewing Party for Movie"
         end
@@ -90,6 +91,27 @@ RSpec.describe "New Viewing Party Page", type: :feature do
           expect(current_path).to eq('/dashboard')
           expect(Party.last.movie_title).to eq(@enola.title)
         end
+      end
+
+      it "can see a failure if user doesn't add friends" do
+        click_button "Create Viewing Party for Movie"
+        within '#party' do
+          within '.date-select' do
+            find("option[value='2020']").select_option
+            find("option[value='10']", text: 'October').select_option
+            find("option[value='15']", text: '15').select_option
+          end
+
+          expect(page).to have_content("Start time")
+          within '.time-select' do
+            find("option[value='19']", text: '7 PM').select_option
+            find("option[value='00']", text: '00').select_option
+          end
+
+          click_button "Create Party"
+          expect(current_path).to eq("/#{@enola.id}/party/new")
+        end
+        expect(page).to have_content("You did not add any friends!")
       end
     end
 
