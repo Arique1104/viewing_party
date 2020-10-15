@@ -8,6 +8,7 @@
  Include original repo
  Include Wireframes here
  Include deployed app here
+ Share out personal experience
 
 ## Table of Contents
   1. Home (link to Viewing Party)
