@@ -1,6 +1,5 @@
 class Schedule
- attr_reader  :date,
-              :start_time
+  attr_reader :date, :start_time
   def initialize(secure_params)
     @secure_params = secure_params
     @date = format_date
@@ -12,9 +11,8 @@ class Schedule
   end
 
   def format_start_time
-    hour = "#{@secure_params['start_time(4i)']}"
-    minutes = "#{@secure_params['start_time(5i)']}"
-    
+    hour = @secure_params['start_time(4i)']
+    minutes = @secure_params['start_time(5i)']
     if hour.to_i > 12
       "#{hour.to_i - 12}:#{minutes} PM"
     else
