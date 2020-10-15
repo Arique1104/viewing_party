@@ -9,12 +9,13 @@ class PartiesController < ApplicationController
   end
 
   def create
-    new_party = format_party
-    if new_party.save && params[:participants]
+    new_party = current_user.parties.new(format_party)
+    if params[:participants]
+      new_party.save
       User.where(id: params[:participants]).each do |participant|
         new_party.party_participants.create(user: participant)
       end
-      redirect_to '/dashboard'
+      redirect_to '/dashboard', method: :get
     else
       redirect_to "/#{params[:movie_id]}/party/new"
       flash[:errors] = 'You did not add any friends!'
@@ -29,12 +30,11 @@ class PartiesController < ApplicationController
 
   def format_party
     schedule = Schedule.new(party_params)
-
-    current_user.parties.new(
+    {
       movie_title: party_params[:movie_title],
       runtime: party_params[:runtime],
       date: schedule.date,
       start_time: schedule.start_time
-    )
+    }
   end
 end
